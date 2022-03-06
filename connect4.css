@@ -16,8 +16,20 @@ pieces are div within game table cells: draw as colored circles
   width: 80%;
   height: 80%;
   border-radius: 50%;
+  position: relative;
+  animation-duration: 1s;
+  animation-name: downPiece;
 }
-
+@keyframes downPiece{
+  from{
+    visibility: hidden;
+    top: -150px;
+  }
+  to{
+    visibility: visible;
+    top: 0px;
+  }
+}
 
 /* 
 TODO: make pieces red/blue, depending on player 1/2 piece 
