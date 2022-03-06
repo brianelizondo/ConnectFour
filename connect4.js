@@ -31,27 +31,43 @@ function makeBoard() {
 */
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  let htmlBoard = document.getElementById("board");
 
   // TODO: add comment for this code
+  // Create a TR element for the first row of the board
   let top = document.createElement("tr");
+  // Set the ID attribute "column-top" to the row
   top.setAttribute("id", "column-top");
+  // Add a "click" event to execute the "handleClick" function when a cell in the first row of the board is clicked
   top.addEventListener("click", handleClick);
 
+  // Loop through the number of "WIDTH" to add the columns to the first row of the board
   for (let x = 0; x < WIDTH; x++) {
+    // Create a "TD" element
     let headCell = document.createElement("td");
+    // Add the ID "X value" attribute to the created column
     headCell.setAttribute("id", x);
+    // Add the created column to the first row of the board
     top.append(headCell);
   }
+  // Add the first row created to the table "board"
   htmlBoard.append(top);
 
   // TODO: add comment for this code
+  // Loop through the number of "HEIGHT" to add the rows the board
   for (let y = 0; y < HEIGHT; y++) {
-    let row = document.createElement("tr");
+    // Create a TR element the board game
+    const row = document.createElement("tr");
+    // Loop through the number of "WIDTH" to add the columns to each row of the board
     for (let x = 0; x < WIDTH; x++) {
+      // Create a "TD" element
       const cell = document.createElement("td");
+      // Add the ID "Y-X" attribute for the cell position on the board
       cell.setAttribute("id", `${y}-${x}`);
+      // Add the created column to row created before
       row.append(cell);
     }
+  // Add the row created to the table "board"
     htmlBoard.append(row);
   }
 }
