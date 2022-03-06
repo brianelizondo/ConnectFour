@@ -13,7 +13,7 @@ const board = []; // array of rows, each row is array of cells  (board[y][x])
 * makeBoard: create in-JS board structure:
 * board = array of rows, each row is array of cells (board[y][x])
 */
-function makeBoard() {
+function makeBoard(){
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
   let tempBoard = [];
   for(let y = 1; y <= HEIGHT; y++){
@@ -29,7 +29,7 @@ function makeBoard() {
 /*
 * makeHtmlBoard: make HTML table and row of column tops. 
 */
-function makeHtmlBoard() {
+function makeHtmlBoard(){
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   let htmlBoard = document.getElementById("board");
 
@@ -76,7 +76,7 @@ function makeHtmlBoard() {
 /*
 * findSpotForCol: given column x, return top empty y (null if filled) 
 */
-function findSpotForCol(x) {
+function findSpotForCol(x){
   // TODO: write the real version of this, rather than always returning 0
   return 0;
 }
@@ -85,8 +85,13 @@ function findSpotForCol(x) {
 /*
 * placeInTable: update DOM to place piece into HTML table of board 
 */
-function placeInTable(y, x) {
+function placeInTable(y, x){
   // TODO: make a div and insert into correct table cell
+  let tableCell = document.getElementById(`${y}-${x}`);
+  const newPlayerPiece = document.createElement("div");
+  newPlayerPiece.setAttribute("class", "piece");
+  newPlayerPiece.classList.add("p" + currPlayer);
+  tableCell.append(newPlayerPiece);
 }
 
 
