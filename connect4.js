@@ -78,7 +78,16 @@ function makeHtmlBoard(){
 */
 function findSpotForCol(x){
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  // check each row and column if the value is "null"
+  for(let y = board.length - 1; y >= 0; y--){
+    const boardRow = board[y];
+    if(boardRow[x] == null){
+      // return the top empty row to put the piece in that column
+      return y;
+    }
+  }
+  // if the column is filled return "null"
+  return null;
 }
 
 
@@ -87,11 +96,17 @@ function findSpotForCol(x){
 */
 function placeInTable(y, x){
   // TODO: make a div and insert into correct table cell
+  // get "y-x" table cell clicked to put a new piece in the column
   let tableCell = document.getElementById(`${y}-${x}`);
+  // create a new div element to put a piece in the board
   const newPlayerPiece = document.createElement("div");
+  // add the "piece" class to the new div
   newPlayerPiece.setAttribute("class", "piece");
+  // add the "p1" or "p2" class to the div
   newPlayerPiece.classList.add("p" + currPlayer);
+  // add the new div to the cell in the board
   tableCell.append(newPlayerPiece);
+  // update the board matrix with de player number
   board[y][x] = currPlayer;
 }
 
@@ -101,6 +116,7 @@ function placeInTable(y, x){
 */
 function endGame(msg) {
   // TODO: pop up alert message
+  window.alert(msg);
 }
 
 
@@ -113,17 +129,19 @@ function handleClick(evt) {
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
-  if (y === null) {
+  if(y === null) {
     return;
   }
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
-  placeInTable(y, x);
+  if(y !== null){
+    placeInTable(y, x);
+  }
 
   // check for win
-  if (checkForWin()) {
-    return endGame(`Player ${currPlayer} won!`);
+  if(checkForWin()){
+    return endGame(`Player ${currPlayer} is the winner!`);
   }
 
   // check for tie
@@ -134,6 +152,7 @@ function handleClick(evt) {
     filledCellsResult.push(boardRow.every(value => value > 0));
   }
   if(filledCellsResult.every(result => result == true)){
+    // if all cells are filled call endGame function
     endGame();
   }
 
@@ -146,12 +165,11 @@ function handleClick(evt) {
 /*
 * checkForWin: check board cell-by-cell for "does a win start here?" 
 */
-function checkForWin() {
-  function _win(cells) {
+function checkForWin(){
+  function _win(cells){
     // Check four cells to see if they're all color of current player
     //  - cells: list of four (y, x) cells
     //  - returns true if all are legal coordinates & all match currPlayer
-
     return cells.every(
       ([y, x]) =>
         y >= 0 &&
@@ -163,9 +181,8 @@ function checkForWin() {
   }
 
   // TODO: read and understand this code. Add comments to help you.
-
-  for (let y = 0; y < HEIGHT; y++) {
-    for (let x = 0; x < WIDTH; x++) {
+  for (let y = 0; y < HEIGHT; y++){
+    for (let x = 0; x < WIDTH; x++){
       const horiz  = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
       const vert   = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
       const diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
