@@ -181,13 +181,21 @@ function checkForWin(){
   }
 
   // TODO: read and understand this code. Add comments to help you.
+  // start a loop to check the array for each column
   for (let y = 0; y < HEIGHT; y++){
+    // start a loop to check the array for each row
     for (let x = 0; x < WIDTH; x++){
+      // 4 variables are declared with the possible ways to win (horizontal, vertical or diagonal)
+      // horizontal option: find the position of the piece of the player and check in the next 3 columns if the pieces are from the player changing the X value (adding 1)
       const horiz  = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+      // vertical option: find the position of the piece of the player and check in the next 3 rows if the pieces are from the player changing the Y value (adding 1)
       const vert   = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+      // diagonal right option: find the position of the piece of the player and check in the next 3 columns/rows if the pieces are from the player changing the Y,X value (adding 1)
       const diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+      // diagonal left option: find the position of the player's piece and check in the previous 3 columns/rows if the pieces are the player's changing the Y,X value (less 1)
       const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
+      // call the _win function and send the coordinates of the possible player pieces, it checks if all the pieces are in those coordinates. If any of the conditions is true, the true value is returned to execute the endGame function
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
