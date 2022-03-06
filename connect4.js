@@ -6,7 +6,7 @@
 */
 const WIDTH = 7;
 const HEIGHT = 6;
-const currPlayer = 1; // active player: 1 or 2
+let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /* 
@@ -92,6 +92,7 @@ function placeInTable(y, x){
   newPlayerPiece.setAttribute("class", "piece");
   newPlayerPiece.classList.add("p" + currPlayer);
   tableCell.append(newPlayerPiece);
+  board[y][x] = currPlayer;
 }
 
 
@@ -127,9 +128,18 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
+  let filledCellsResult = [];
+  for(let y = 0; y < board.length; y++){
+    const boardRow = board[y];
+    filledCellsResult.push(boardRow.every(value => value > 0));
+  }
+  if(filledCellsResult.every(result => result == true)){
+    endGame();
+  }
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+  currPlayer = currPlayer === 1 ? 2 : 1;
 }
 
 
